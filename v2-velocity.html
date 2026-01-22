@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pandata Solutions - Velocity (V2)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * {
             margin: 0;
@@ -419,12 +420,18 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem;
-            font-size: 1.25rem;
+            color: var(--accent-green);
         }
         
-        .process-step:nth-child(2) .process-icon { border-color: #84cc16; }
-        .process-step:nth-child(3) .process-icon { border-color: #eab308; }
-        .process-step:nth-child(4) .process-icon { border-color: var(--accent-coral); }
+        .process-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+        }
+        
+        .process-step:nth-child(2) .process-icon { border-color: #84cc16; color: #84cc16; }
+        .process-step:nth-child(3) .process-icon { border-color: #eab308; color: #eab308; }
+        .process-step:nth-child(4) .process-icon { border-color: var(--accent-coral); color: var(--accent-coral); }
         
         .process-step h4 {
             font-size: 1rem;
@@ -672,22 +679,22 @@
         
         <div class="process-timeline">
             <div class="process-step">
-                <div class="process-icon">🎯</div>
+                <div class="process-icon"><i data-lucide="target"></i></div>
                 <h4>Scope</h4>
                 <p>Define requirements and align on goals</p>
             </div>
             <div class="process-step">
-                <div class="process-icon">🔨</div>
+                <div class="process-icon"><i data-lucide="hammer"></i></div>
                 <h4>Build</h4>
                 <p>Rapid iteration with continuous feedback</p>
             </div>
             <div class="process-step">
-                <div class="process-icon">🚀</div>
+                <div class="process-icon"><i data-lucide="rocket"></i></div>
                 <h4>Ship</h4>
                 <p>Deploy to real users and measure impact</p>
             </div>
             <div class="process-step">
-                <div class="process-icon">🔄</div>
+                <div class="process-icon"><i data-lucide="refresh-cw"></i></div>
                 <h4>Iterate</h4>
                 <p>Improve based on real-world usage</p>
             </div>
@@ -737,5 +744,8 @@
             <a href="#">Privacy Policy</a>
         </div>
     </footer>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
