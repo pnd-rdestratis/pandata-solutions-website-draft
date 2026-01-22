@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandata Solutions - Design Concepts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Shared Navbar */
+        .main-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 4rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .main-navbar.dark {
+            background: rgba(10, 22, 40, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .main-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        
+        .main-navbar.dark .main-logo {
+            color: white;
+        }
+        
+        .version-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .version-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .version-btn:hover {
+            border-color: #22c55e;
+            color: #0f172a;
+        }
+        
+        .version-btn.active {
+            background: #22c55e;
+            color: white;
+            border-color: #22c55e;
+            font-weight: 600;
+        }
+        
+        .main-navbar.dark .version-btn {
+            border-color: rgba(255,255,255,0.1);
+            color: #94a3b8;
+        }
+        
+        .main-navbar.dark .version-btn:hover {
+            border-color: #4ade80;
+            color: white;
+        }
+        
+        .main-navbar.dark .version-btn.active {
+            background: #4ade80;
+            color: #0a1628;
+        }
+        
+        .main-cta {
+            padding: 0.625rem 1.25rem;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .main-navbar.dark .main-cta {
+            background: #4ade80;
+            color: #0a1628;
+        }
+        
+        /* Version containers */
+        .version-container {
+            display: none;
+        }
+        
+        .version-container.active {
+            display: block;
+        }
+        
+        /* ============================================ */
+        /* V1 FOUNDATION STYLES */
+        /* ============================================ */
+        .v1 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0a1628;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .v1 .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .v1 .hero-content h1 {
+            font-size: 3.25rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .v1 .hero-content h1 span {
+            color: #4ade80;
+        }
+        
+        .v1 .hero-content p {
+            font-size: 1.125rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        
+        .v1 .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #4ade80;
+            color: #0a1628;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .v1 .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .v1 .geo-block {
+            position: absolute;
+            border-radius: 12px;
+        }
+        
+        .v1 .geo-1 { width: 180px; height: 180px; background: #4ade80; top: 20%; right: 30%; opacity: 0.9; }
+        .v1 .geo-2 { width: 130px; height: 220px; background: #0f1d32; border: 2px solid #2dd4bf; top: 10%; right: 10%; }
+        .v1 .geo-3 { width: 160px; height: 160px; background: #2dd4bf; bottom: 15%; right: 25%; opacity: 0.7; }
+        .v1 .geo-4 { width: 100px; height: 100px; background: #3b82f6; bottom: 30%; right: 5%; opacity: 0.6; }
+        .v1 .geo-5 { width: 70px; height: 70px; background: #131f35; border: 2px solid #4ade80; top: 40%; right: 45%; }
+        
+        .v1 .logo-strip {
+            padding: 3rem 4rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .v1 .logo-strip-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .v1 .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .v1 .logo-item {
+            height: 22px;
+            opacity: 0.6;
+            filter: brightness(0) invert(1);
+        }
+        
+        .v1 .products { padding: 4rem; }
+        
+        .v1 .section-label {
+            font-size: 0.875rem;
+            color: #4ade80;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        
+        .v1 .section-headline {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .v1 .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .v1 .bento-card {
+            background: #131f35;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .v1 .product-mockup {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 1rem 1rem 0;
+        }
+        
+        .v1 .mockup-browser {
+            background: #1e293b;
+            border-radius: 6px 6px 0 0;
+            overflow: hidden;
+        }
+        
+        .v1 .mockup-browser-bar {
+            background: #334155;
+            padding: 0.4rem 0.6rem;
+            display: flex;
+            gap: 0.3rem;
+        }
+        
+        .v1 .mockup-dot { width: 6px; height: 6px; border-radius: 50%; background: #475569; }
+        .v1 .mockup-dot:first-child { background: #f87171; }
+        .v1 .mockup-dot:nth-child(2) { background: #fbbf24; }
+        .v1 .mockup-dot:nth-child(3) { background: #4ade80; }
+        
+        .v1 .mockup-screen { height: 160px; overflow: hidden; }
+        .v1 .mockup-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        .v1 .product-content { padding: 1.5rem; }
+        .v1 .bento-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .v1 .bento-card p { color: #94a3b8; font-size: 0.9375rem; line-height: 1.5; }
+        
+        .v1 .how-we-work {
+            padding: 5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: #0f1d32;
+        }
+        
+        .v1 .timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .v1 .timeline-item { display: flex; align-items: center; gap: 1.5rem; }
+        
+        .v1 .timeline-marker {
+            width: 48px;
+            height: 48px;
+            background: #4ade80;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0a1628;
+            flex-shrink: 0;
+        }
+        
+        .v1 .timeline-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .v1 .timeline-content p { font-size: 0.875rem; color: #94a3b8; }
+        
+        .v1 .how-we-work-content h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .v1 .how-we-work-content p { color: #94a3b8; font-size: 1rem; }
+        
+        .v1 .engagement { padding: 5rem 4rem; }
+        
+        .v1 .engagement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            max-width: 700px;
+        }
+        
+        .v1 .engagement-card {
+            background: #131f35;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+        
+        .v1 .engagement-card h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .v1 .engagement-card p { color: #94a3b8; font-size: 0.9375rem; }
+        
+        .v1 .advantage {
+            padding: 5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: #0f1d32;
+        }
+        
+        .v1 .advantage h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2; }
+        .v1 .advantage p { color: #94a3b8; font-size: 1rem; }
+        
+        .v1 .stats { display: flex; flex-direction: column; gap: 2rem; }
+        .v1 .stat { text-align: right; }
+        .v1 .stat-number { font-size: 3.5rem; font-weight: 800; color: #4ade80; line-height: 1; }
+        .v1 .stat-label { font-size: 1rem; color: #94a3b8; }
+        
+        .v1 .final-cta {
+            padding: 6rem 4rem;
+            text-align: center;
+            background: linear-gradient(180deg, #0a1628 0%, #0f1d32 100%);
+        }
+        
+        .v1 .final-cta h2 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .v1 .final-cta p { color: #94a3b8; font-size: 1.125rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        .v1 .footer {
+            padding: 2rem 4rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .v1 .footer-left { color: #94a3b8; font-size: 0.875rem; }
+        .v1 .footer-links { display: flex; gap: 2rem; }
+        .v1 .footer-links a { color: #64748b; font-size: 0.875rem; text-decoration: none; }
+        
+        /* ============================================ */
+        /* V2 VELOCITY STYLES */
+        /* ============================================ */
+        .v2 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        
+        .v2 .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #fef3e2 100%);
+        }
+        
+        .v2 .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .v2 .hero-content h1 span {
+            background: linear-gradient(135deg, #22c55e 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .v2 .hero-content p {
+            font-size: 1.25rem;
+            color: #475569;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        
+        .v2 .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .v2 .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .v2 .motion-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+        
+        .v2 .motion-1 { width: 400px; height: 400px; background: #22c55e; opacity: 0.3; top: 10%; right: 10%; }
+        .v2 .motion-2 { width: 300px; height: 300px; background: #f97316; opacity: 0.25; bottom: 10%; right: 30%; }
+        .v2 .motion-3 { width: 200px; height: 200px; background: #3b82f6; opacity: 0.2; top: 30%; right: 40%; }
+        
+        .v2 .logo-strip {
+            padding: 3rem 4rem;
+            background: #f8fafc;
+        }
+        
+        .v2 .logo-strip-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+        
+        .v2 .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .v2 .logo-item { height: 24px; opacity: 0.5; }
+        
+        .v2 .products { padding: 4rem 4rem 5rem; }
+        
+        .v2 .section-label {
+            font-size: 0.875rem;
+            color: #22c55e;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .v2 .section-headline {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            letter-spacing: -0.02em;
+        }
+        
+        .v2 .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .v2 .bento-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .v2 .product-mockup {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 1.5rem 1.5rem 0;
+        }
+        
+        .v2 .mockup-browser {
+            background: #f8fafc;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+        
+        .v2 .mockup-browser-bar {
+            background: #e2e8f0;
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            gap: 0.375rem;
+        }
+        
+        .v2 .mockup-dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; }
+        .v2 .mockup-dot:first-child { background: #f87171; }
+        .v2 .mockup-dot:nth-child(2) { background: #fbbf24; }
+        .v2 .mockup-dot:nth-child(3) { background: #4ade80; }
+        
+        .v2 .mockup-screen { height: 180px; overflow: hidden; }
+        .v2 .mockup-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        .v2 .product-content { padding: 1.5rem; }
+        .v2 .bento-card h3 { font-size: 1.375rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .v2 .bento-card p { color: #475569; font-size: 0.9375rem; line-height: 1.6; }
+        
+        .v2 .process {
+            padding: 5rem 4rem;
+            background: #f8fafc;
+        }
+        
+        .v2 .process-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .v2 .process-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .v2 .process-header p { color: #475569; font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+        
+        .v2 .process-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .v2 .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 60px;
+            right: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #22c55e, #f97316);
+            border-radius: 2px;
+        }
+        
+        .v2 .process-step { flex: 1; text-align: center; position: relative; z-index: 1; }
+        
+        .v2 .process-icon {
+            width: 56px;
+            height: 56px;
+            background: white;
+            border: 3px solid #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: #22c55e;
+        }
+        
+        .v2 .process-icon svg { width: 24px; height: 24px; stroke-width: 2; }
+        
+        .v2 .process-step:nth-child(2) .process-icon { border-color: #84cc16; color: #84cc16; }
+        .v2 .process-step:nth-child(3) .process-icon { border-color: #eab308; color: #eab308; }
+        .v2 .process-step:nth-child(4) .process-icon { border-color: #f97316; color: #f97316; }
+        
+        .v2 .process-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .v2 .process-step p { font-size: 0.875rem; color: #475569; max-width: 160px; margin: 0 auto; }
+        
+        .v2 .process-duration { margin-top: 3rem; display: flex; justify-content: center; gap: 3rem; }
+        .v2 .duration-item { text-align: center; }
+        .v2 .duration-value { font-size: 2rem; font-weight: 800; color: #22c55e; }
+        .v2 .duration-label { font-size: 0.875rem; color: #475569; }
+        
+        .v2 .engagement { padding: 5rem 4rem; }
+        
+        .v2 .engagement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2.5rem;
+            max-width: 800px;
+        }
+        
+        .v2 .engagement-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        
+        .v2 .engagement-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .v2 .engagement-card p { color: #475569; font-size: 1rem; }
+        
+        .v2 .final-cta {
+            padding: 6rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f0fdf4 0%, #fef3e2 100%);
+        }
+        
+        .v2 .final-cta h2 { font-size: 2.75rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .v2 .final-cta h2 span { color: #22c55e; }
+        .v2 .final-cta p { color: #475569; font-size: 1.25rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        .v2 .footer {
+            padding: 2rem 4rem;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .v2 .footer-left { color: #475569; font-size: 0.875rem; }
+        .v2 .footer-links { display: flex; gap: 2rem; }
+        .v2 .footer-links a { color: #94a3b8; font-size: 0.875rem; text-decoration: none; }
+        
+        /* ============================================ */
+        /* V3 STUDIO STYLES */
+        /* ============================================ */
+        .v3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #faf8f5;
+            color: #292524;
+            line-height: 1.7;
+        }
+        
+        .v3 h1, .v3 h2, .v3 h3 { font-family: 'Playfair Display', Georgia, serif; }
+        
+        .v3 .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .v3 .hero-content h1 {
+            font-size: 3.25rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+        
+        .v3 .hero-content h1 span { color: #c2410c; }
+        
+        .v3 .hero-content p {
+            font-size: 1.125rem;
+            color: #57534e;
+            margin-bottom: 2rem;
+            max-width: 480px;
+        }
+        
+        .v3 .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: #292524;
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .v3 .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .v3 .organic-shape { position: absolute; border-radius: 50%; }
+        .v3 .organic-1 { width: 300px; height: 300px; background: linear-gradient(135deg, #fed7aa 0%, #fef3c7 100%); top: 15%; right: 15%; }
+        .v3 .organic-2 { width: 240px; height: 240px; background: linear-gradient(135deg, #fecaca 0%, #fed7aa 100%); bottom: 10%; right: 35%; opacity: 0.8; }
+        .v3 .organic-3 { width: 150px; height: 150px; background: #c2410c; opacity: 0.15; top: 35%; right: 5%; }
+        .v3 .organic-4 { width: 100px; height: 100px; background: #ca8a04; opacity: 0.2; bottom: 30%; right: 10%; }
+        
+        .v3 .logo-strip { padding: 3rem 4rem; background: #f5f2ed; }
+        
+        .v3 .logo-strip-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #a8a29e;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .v3 .logos { display: flex; justify-content: center; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+        .v3 .logo-item { height: 22px; opacity: 0.5; }
+        
+        .v3 .products { padding: 4rem 4rem 5rem; }
+        
+        .v3 .section-label { font-size: 0.875rem; color: #c2410c; margin-bottom: 1rem; font-weight: 500; letter-spacing: 0.05em; }
+        .v3 .section-headline { font-size: 2.25rem; font-weight: 700; margin-bottom: 2.5rem; max-width: 500px; }
+        
+        .v3 .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        
+        .v3 .bento-card { background: white; border: 1px solid #e7e5e4; border-radius: 24px; overflow: hidden; }
+        
+        .v3 .product-mockup { background: linear-gradient(135deg, #f5f2ed, #e7e5e4); padding: 1rem 1rem 0; }
+        
+        .v3 .mockup-browser { background: #fff; border-radius: 8px 8px 0 0; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        
+        .v3 .mockup-browser-bar { background: #f5f5f4; padding: 0.4rem 0.6rem; display: flex; gap: 0.3rem; }
+        
+        .v3 .mockup-dot { width: 6px; height: 6px; border-radius: 50%; background: #d6d3d1; }
+        .v3 .mockup-dot:first-child { background: #f87171; }
+        .v3 .mockup-dot:nth-child(2) { background: #fbbf24; }
+        .v3 .mockup-dot:nth-child(3) { background: #4ade80; }
+        
+        .v3 .mockup-screen { height: 160px; overflow: hidden; }
+        .v3 .mockup-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        .v3 .product-content { padding: 1.5rem; }
+        .v3 .bento-card h3 { font-size: 1.375rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .v3 .bento-card p { color: #57534e; font-size: 0.9375rem; font-family: 'Inter', sans-serif; line-height: 1.5; }
+        
+        .v3 .our-approach {
+            padding: 5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: #f5f2ed;
+        }
+        
+        .v3 .approach-visual { position: relative; height: 350px; display: flex; align-items: center; justify-content: center; }
+        .v3 .collab-circle { position: absolute; border-radius: 50%; }
+        .v3 .collab-1 { width: 220px; height: 220px; background: linear-gradient(135deg, #fed7aa 0%, #fef3c7 100%); left: 20%; }
+        .v3 .collab-2 { width: 220px; height: 220px; background: linear-gradient(135deg, #fecaca 0%, #fed7aa 100%); right: 20%; opacity: 0.8; }
+        
+        .v3 .our-approach-content h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2; }
+        .v3 .our-approach-content p { color: #57534e; font-size: 1rem; margin-bottom: 1rem; }
+        
+        .v3 .engagement { padding: 5rem 4rem; }
+        
+        .v3 .engagement-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; max-width: 700px; }
+        
+        .v3 .engagement-card { background: #f5f2ed; border: 1px solid #e7e5e4; border-radius: 24px; padding: 1.75rem; }
+        .v3 .engagement-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .v3 .engagement-card p { color: #57534e; font-size: 0.9375rem; font-family: 'Inter', sans-serif; }
+        
+        .v3 .final-cta { padding: 6rem 4rem; text-align: center; background: linear-gradient(180deg, #faf8f5 0%, #fef3c7 100%); }
+        .v3 .final-cta h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .v3 .final-cta p { color: #57534e; font-size: 1.125rem; margin-bottom: 2rem; max-width: 450px; margin-left: auto; margin-right: auto; }
+        
+        .v3 .footer { padding: 2rem 4rem; background: #faf8f5; border-top: 1px solid #e7e5e4; display: flex; justify-content: space-between; align-items: center; }
+        .v3 .footer-left { color: #57534e; font-size: 0.875rem; }
+        .v3 .footer-links { display: flex; gap: 2rem; }
+        .v3 .footer-links a { color: #a8a29e; font-size: 0.875rem; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <!-- Main Navbar -->
+    <nav class="main-navbar" id="mainNav">
+        <div class="main-logo">Pandata Solutions</div>
+        <div class="version-switcher">
+            <button class="version-btn" data-version="v1">Foundation</button>
+            <button class="version-btn active" data-version="v2">Velocity</button>
+            <button class="version-btn" data-version="v3">Studio</button>
+        </div>
+        <button class="main-cta">Let's talk</button>
+    </nav>
+
+    <!-- V1 Foundation -->
+    <div class="version-container v1" id="v1">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Building products used to take months to years.<br><span>We ship them in weeks.</span></h1>
+                <p>AI-powered development has changed what's possible. We're using that advantage to build enterprise-grade products more efficiently than ever — and we're passing that directly to you.</p>
+                <button class="cta-primary">Get in touch →</button>
+            </div>
+            <div class="hero-visual">
+                <div class="geo-block geo-1"></div>
+                <div class="geo-block geo-2"></div>
+                <div class="geo-block geo-3"></div>
+                <div class="geo-block geo-4"></div>
+                <div class="geo-block geo-5"></div>
+            </div>
+        </section>
+        <section class="logo-strip">
+            <div class="logo-strip-label">Trusted by</div>
+            <div class="logos" id="v1-logos"></div>
+        </section>
+        <section class="products">
+            <div class="section-label">Our Products</div>
+            <h2 class="section-headline">Production-ready solutions for data-driven organizations</h2>
+            <div class="bento-grid" id="v1-products"></div>
+        </section>
+        <section class="how-we-work">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>Week 1-2: Scoping</h4>
+                        <p>Define requirements and align on goals</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>Week 3-6: First Working Version</h4>
+                        <p>Rapid iteration with continuous feedback</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>Month 2-3: Production Deployment</h4>
+                        <p>Ship to real users, measure, improve</p>
+                    </div>
+                </div>
+            </div>
+            <div class="how-we-work-content">
+                <h2>From initial conversation to production in weeks.</h2>
+                <p>We work in short cycles. You see working software early. We iterate based on what you learn. This pace is possible because we've solved similar problems before.</p>
+            </div>
+        </section>
+        <section class="engagement">
+            <div class="section-label">Ways to work with us</div>
+            <h2 class="section-headline">Two ways to engage</h2>
+            <div class="engagement-grid">
+                <div class="engagement-card">
+                    <h3>License a Product</h3>
+                    <p>Use one of our existing products. Ongoing updates, priority support, flexible terms.</p>
+                </div>
+                <div class="engagement-card">
+                    <h3>Dedicated Build</h3>
+                    <p>Custom development for your specific needs. Full ownership, full control.</p>
+                </div>
+            </div>
+        </section>
+        <section class="advantage">
+            <div>
+                <h2>Ten years of implementation experience.<br>Now with the speed to match.</h2>
+                <p>Our team has spent a decade building data and AI solutions for organizations across industries. We've seen what works at scale. We know where complexity hides.</p>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">years of experience</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">specialists</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">enterprise clients</div>
+                </div>
+            </div>
+        </section>
+        <section class="final-cta">
+            <h2>Ready to discuss your requirements?</h2>
+            <p>Tell us what you're trying to solve. We'll share how we can help.</p>
+            <button class="cta-primary">Start a conversation →</button>
+        </section>
+        <footer class="footer">
+            <div class="footer-left">Pandata Solutions | Berlin | hi@pandata.de</div>
+            <div class="footer-links">
+                <a href="#">Imprint</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- V2 Velocity -->
+    <div class="version-container v2 active" id="v2">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Building products used to take months to years.<br><span>We ship them in weeks.</span></h1>
+                <p>AI-powered development has changed what's possible. We're using that advantage to build enterprise-grade products more efficiently than ever — and we're passing that directly to you.</p>
+                <button class="cta-primary">Let's talk →</button>
+            </div>
+            <div class="hero-visual">
+                <div class="motion-shape motion-1"></div>
+                <div class="motion-shape motion-2"></div>
+                <div class="motion-shape motion-3"></div>
+            </div>
+        </section>
+        <section class="logo-strip">
+            <div class="logo-strip-label">Trusted by</div>
+            <div class="logos" id="v2-logos"></div>
+        </section>
+        <section class="products">
+            <div class="section-label">What We've Built</div>
+            <h2 class="section-headline">Real products. Already in production.</h2>
+            <div class="bento-grid" id="v2-products"></div>
+        </section>
+        <section class="process">
+            <div class="process-header">
+                <h2>From conversation to production</h2>
+                <p>We don't disappear for months. You see progress in weeks. We refine based on real usage, not assumptions.</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-icon"><i data-lucide="target"></i></div>
+                    <h4>Scope</h4>
+                    <p>Define requirements and align on goals</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon"><i data-lucide="hammer"></i></div>
+                    <h4>Build</h4>
+                    <p>Rapid iteration with continuous feedback</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon"><i data-lucide="rocket"></i></div>
+                    <h4>Ship</h4>
+                    <p>Deploy to real users and measure impact</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon"><i data-lucide="refresh-cw"></i></div>
+                    <h4>Iterate</h4>
+                    <p>Improve based on real-world usage</p>
+                </div>
+            </div>
+            <div class="process-duration">
+                <div class="duration-item">
+                    <div class="duration-value">2 weeks</div>
+                    <div class="duration-label">to first prototype</div>
+                </div>
+                <div class="duration-item">
+                    <div class="duration-value">6 weeks</div>
+                    <div class="duration-label">to production MVP</div>
+                </div>
+            </div>
+        </section>
+        <section class="engagement">
+            <div class="section-label">Pick your model</div>
+            <h2 class="section-headline">Two ways to work together</h2>
+            <div class="engagement-grid">
+                <div class="engagement-card">
+                    <h3>License a Product</h3>
+                    <p>Use one of our existing products. Fastest path to value. Ongoing updates and priority support included.</p>
+                </div>
+                <div class="engagement-card">
+                    <h3>Dedicated Build</h3>
+                    <p>Your product, your ownership. We build exactly what you need. You keep everything.</p>
+                </div>
+            </div>
+        </section>
+        <section class="final-cta">
+            <h2>What could we build for you in <span>6 weeks</span>?</h2>
+            <p>Honest conversation. No obligations. Let's see if there's a fit.</p>
+            <button class="cta-primary">Book a call →</button>
+        </section>
+        <footer class="footer">
+            <div class="footer-left">Pandata Solutions | Berlin | hi@pandata.de</div>
+            <div class="footer-links">
+                <a href="#">Imprint</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- V3 Studio -->
+    <div class="version-container v3" id="v3">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Building products used to take months to years.<br><span>We ship them in weeks.</span></h1>
+                <p>AI-powered development has changed what's possible. We're using that advantage to build enterprise-grade products more efficiently than ever — and we're passing that directly to you.</p>
+                <button class="cta-primary">Let's talk →</button>
+            </div>
+            <div class="hero-visual">
+                <div class="organic-shape organic-1"></div>
+                <div class="organic-shape organic-2"></div>
+                <div class="organic-shape organic-3"></div>
+                <div class="organic-shape organic-4"></div>
+            </div>
+        </section>
+        <section class="logo-strip">
+            <div class="logo-strip-label">Trusted by</div>
+            <div class="logos" id="v3-logos"></div>
+        </section>
+        <section class="products">
+            <div class="section-label">What We Make</div>
+            <h2 class="section-headline">Products built from real needs</h2>
+            <div class="bento-grid" id="v3-products"></div>
+        </section>
+        <section class="our-approach">
+            <div class="approach-visual">
+                <div class="collab-circle collab-1"></div>
+                <div class="collab-circle collab-2"></div>
+            </div>
+            <div class="our-approach-content">
+                <h2>We bring more than development capacity.</h2>
+                <p>We've spent ten years working alongside organizations on their data and AI challenges. That context shapes how we approach product development.</p>
+                <p>We ask questions before we build. We design for how your team actually works. We think about maintenance, not just launch.</p>
+            </div>
+        </section>
+        <section class="engagement">
+            <div class="section-label">How we can work together</div>
+            <h2 class="section-headline">Two ways to engage</h2>
+            <div class="engagement-grid">
+                <div class="engagement-card">
+                    <h3>License a Product</h3>
+                    <p>Start with a product we've already built and refined. Faster start, proven foundation.</p>
+                </div>
+                <div class="engagement-card">
+                    <h3>Dedicated Build</h3>
+                    <p>Fully custom development. Your requirements, your ownership, your pace.</p>
+                </div>
+            </div>
+        </section>
+        <section class="final-cta">
+            <h2>Interested in exploring this further?</h2>
+            <p>No pressure. Just a conversation about what you're working on.</p>
+            <button class="cta-primary">Start a conversation →</button>
+        </section>
+        <footer class="footer">
+            <div class="footer-left">Pandata Solutions | Berlin | hi@pandata.de</div>
+            <div class="footer-links">
+                <a href="#">Imprint</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Version switching
+        const versionBtns = document.querySelectorAll('.version-btn');
+        const versionContainers = document.querySelectorAll('.version-container');
+        const mainNav = document.getElementById('mainNav');
+        
+        versionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const version = btn.dataset.version;
+                
+                // Update buttons
+                versionBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update containers
+                versionContainers.forEach(c => c.classList.remove('active'));
+                document.getElementById(version).classList.add('active');
+                
+                // Update navbar style
+                if (version === 'v1') {
+                    mainNav.classList.add('dark');
+                } else {
+                    mainNav.classList.remove('dark');
+                }
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+        
+        // Logos data (placeholders - will be text since no images embedded)
+        const logoNames = ['Pipedrive', 'Delivery Hero', 'HelloFresh', 'Bitpanda', 'Depot', 'Christ', 'HRS', 'Springer Medizin', 'RBB', 'SWR'];
+        
+        // Populate logos
+        ['v1-logos', 'v2-logos', 'v3-logos'].forEach(id => {
+            const container = document.getElementById(id);
+            logoNames.forEach(name => {
+                const span = document.createElement('span');
+                span.className = 'logo-item';
+                span.textContent = name;
+                span.style.cssText = 'font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;';
+                container.appendChild(span);
+            });
+        });
+        
+        // Products data
+        const products = [
+            { name: 'Query Pilot', desc: 'Natural language access to your database. Ask questions, get SQL, see results. No technical expertise required.' },
+            { name: 'Stratify', desc: 'Digital field documentation for geotechnical engineers. Offline-capable, DIN-compliant, exports professional reports.' },
+            { name: 'Eloqua', desc: 'Voice AI that handles customer interactions naturally. Scalable, intelligent voice automation.' }
+        ];
+        
+        // Populate products
+        ['v1-products', 'v2-products', 'v3-products'].forEach(id => {
+            const container = document.getElementById(id);
+            products.forEach(p => {
+                container.innerHTML += `
+                    <div class="bento-card">
+                        <div class="product-mockup">
+                            <div class="mockup-browser">
+                                <div class="mockup-browser-bar">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <div class="mockup-screen" style="background: #1e293b; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 0.75rem;">
+                                    ${p.name} Screenshot
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3>${p.name}</h3>
+                            <p>${p.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
