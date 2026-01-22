@@ -92,13 +92,38 @@
             background: var(--accent-teal);
         }
         
-        /* Hero - Reduced height */
+        /* Version links */
+        .version-link {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .version-link:hover {
+            border-color: var(--accent-mint);
+            color: var(--text-primary);
+        }
+        
+        .version-link.active {
+            background: var(--accent-mint);
+            color: var(--bg-primary);
+            border-color: var(--accent-mint);
+            font-weight: 600;
+        }
+        
+        /* Hero */
         .hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-            padding: 7rem 4rem 3rem;
+            padding: 8rem 4rem 4rem;
             position: relative;
             overflow: hidden;
         }
@@ -200,9 +225,9 @@
             right: 45%;
         }
         
-        /* Logo Strip - Compact */
+        /* Logo Strip */
         .logo-strip {
-            padding: 1.5rem 4rem;
+            padding: 3rem 4rem;
             border-top: 1px solid rgba(255,255,255,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
@@ -523,9 +548,9 @@
     <nav class="navbar">
         <div class="logo">Pandata Solutions</div>
         <div class="nav-center">
-            <button class="version-btn active">Foundation</button>
-            <button class="version-btn">Velocity</button>
-            <button class="version-btn">Studio</button>
+            <a href="v1-foundation.html" class="version-link active">Foundation</a>
+            <a href="v2-velocity.html" class="version-link">Velocity</a>
+            <a href="v3-studio.html" class="version-link">Studio</a>
         </div>
         <button class="cta-nav">Get in touch</button>
     </nav>
